@@ -2,324 +2,206 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Clean Landing</title>
+<title>Video Landing</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;background:#111;color:#fff}
 
-body {
-  background: #0f172a;
-  color: #fff;
-}
-
-/* 🔹 PRELOADER */
-.preloader {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: #020617;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  animation: hide 2s forwards;
-}
-
-.loader {
-  width: 50px;
-  height: 50px;
-  border: 4px solid #334155;
-  border-top: 4px solid #38bdf8;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes hide {
-  to { opacity: 0; visibility: hidden; }
-}
-
-/* 🔹 HEADER */
-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px 40px;
-  background: rgba(15,23,42,0.8);
-  backdrop-filter: blur(10px);
-  position: sticky;
-  top: 0;
-}
-
-.logo {
-  font-weight: bold;
-  font-size: 20px;
-}
-
-.menu {
-  display: flex;
-  gap: 30px;
-  list-style: none;
-}
-
-.menu li {
-  position: relative;
-  cursor: pointer;
-  color: #cbd5f5;
-  transition: 0.3s;
-}
-
-.menu li:hover {
-  color: #38bdf8;
-}
-
-.menu li::after {
-  content: "";
-  position: absolute;
-  height: 2px;
-  width: 0;
-  background: #38bdf8;
-  bottom: -5px;
-  left: 0;
-  transition: 0.3s;
-}
-
-.menu li:hover::after {
-  width: 100%;
-}
-
-/* 🔹 HERO */
+/* HERO VIDEO */
 .hero {
-  height: 90vh;
-  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)),
-              url("https://picsum.photos/1400") center/cover fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
+  position:relative;
+  height:100vh;
+  overflow:hidden;
+}
+.hero video {
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.hero::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.5);
 }
 
-.hero h1 {
-  font-size: 48px;
+/* HERO CONTENT */
+.hero-content {
+  position:relative;
+  z-index:2;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
 }
 
-.hero p {
-  color: #94a3b8;
-}
-
-/* 🔹 BUTTON */
+/* BUTTON */
 .btn {
-  padding: 14px 30px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  background: linear-gradient(45deg, #38bdf8, #6366f1);
-  color: white;
-  transition: 0.3s;
-  position: relative;
-  overflow: hidden;
+  margin-top:20px;
+  padding:12px 25px;
+  border:none;
+  background:#4f46e5;
+  color:#fff;
+  cursor:pointer;
+  transition:.3s;
 }
-
 .btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(56,189,248,0.4);
+  background:#22c55e;
+  transform:translateY(-3px);
 }
 
-/* ripple */
-.btn:active::after {
-  content: "";
-  position: absolute;
-  width: 120px;
-  height: 120px;
-  background: rgba(255,255,255,0.4);
-  border-radius: 50%;
-  transform: scale(0);
-  animation: ripple 0.6s;
+/* PULSE */
+.pulse {
+  animation:pulse 1.5s infinite;
 }
-
-@keyframes ripple {
-  to {
-    transform: scale(3);
-    opacity: 0;
-  }
-}
-
-/* pulse */
-.btn.primary {
-  animation: pulse 2s infinite;
-}
-
 @keyframes pulse {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.1)}
 }
 
-/* 🔹 CARDS */
-.cards {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  padding: 80px 20px;
+/* SECTION */
+.section {
+  padding:60px;
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  background:#f4f6f8;
+  color:#000;
 }
 
+/* CARD */
 .card {
-  width: 250px;
-  height: 180px;
-  border-radius: 15px;
-  background: #1e293b;
-  padding: 20px;
-  transition: 0.4s;
-
-  opacity: 0;
-  transform: translateY(40px);
-  animation: show 1s forwards;
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  transition:.3s;
 }
-
-.card:nth-child(2) { animation-delay: 0.2s; }
-.card:nth-child(3) { animation-delay: 0.4s; }
-
 .card:hover {
-  transform: translateY(-10px) scale(1.05);
-  background: #334155;
+  transform:scale(1.05);
 }
 
-.card p {
-  margin-top: 10px;
-  opacity: 0;
-  transition: 0.3s;
+/* FADE IN */
+.fade {
+  opacity:0;
+  transform:translateY(30px);
+  animation:fadeUp .8s forwards;
+}
+.fade:nth-child(2){animation-delay:.2s}
+.fade:nth-child(3){animation-delay:.4s}
+
+@keyframes fadeUp {
+  to { opacity:1; transform:translateY(0); }
 }
 
-.card:hover p {
-  opacity: 1;
-}
-
-@keyframes show {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* 🔹 MOVING BLOCK */
-.move {
-  width: 60px;
-  height: 60px;
-  background: #38bdf8;
-  border-radius: 10px;
-  margin: 50px auto;
-  animation: slide 3s infinite alternate;
-}
-
-@keyframes slide {
-  from { transform: translateX(-150px); }
-  to { transform: translateX(150px); }
-}
-
-/* 🔹 GALLERY */
-.gallery {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 80px 20px;
-}
-
+/* IMAGE HOVER */
 .img-box {
-  position: relative;
-  overflow: hidden;
-  border-radius: 15px;
+  position:relative;
+  width:250px;
+  overflow:hidden;
 }
-
 .img-box img {
-  width: 250px;
-  transition: 0.4s;
+  width:100%;
+  transition:.4s;
 }
-
-.img-box p {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  opacity: 0;
-  transition: 0.3s;
+.img-box span {
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  color:#fff;
+  opacity:0;
+  transition:.3s;
 }
-
 .img-box:hover img {
-  transform: scale(1.2);
-  filter: brightness(40%);
+  transform:scale(1.2);
+  filter:brightness(.5);
+}
+.img-box:hover span {
+  opacity:1;
 }
 
-.img-box:hover p {
-  opacity: 1;
+/* LOADER */
+.preloader {
+  position:fixed;
+  inset:0;
+  background:#000;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+  animation:hide 2.5s forwards;
+}
+.loader {
+  display:flex;
+  gap:6px;
+}
+.loader span {
+  width:10px;
+  height:10px;
+  background:#fff;
+  border-radius:50%;
+  animation:bounce .6s infinite alternate;
+}
+.loader span:nth-child(2){animation-delay:.2s}
+.loader span:nth-child(3){animation-delay:.4s}
+
+@keyframes bounce {
+  to { transform:translateY(-10px); }
+}
+@keyframes hide {
+  to { opacity:0; visibility:hidden; }
 }
 
-/* 🔹 FOOTER */
-footer {
-  text-align: center;
-  padding: 40px;
-  color: #64748b;
+/* PARALLAX */
+.parallax {
+  height:300px;
+  background:url('https://picsum.photos/1200/600') center/cover fixed;
 }
 </style>
 </head>
 
 <body>
 
+<!-- PRELOADER -->
 <div class="preloader">
-  <div class="loader"></div>
+  <div class="loader">
+    <span></span><span></span><span></span>
+  </div>
 </div>
 
-<header>
-  <div class="logo">MySite</div>
-  <ul class="menu">
-    <li>Главная</li>
-    <li>Услуги</li>
-    <li>Контакты</li>
-  </ul>
-</header>
-
+<!-- HERO VIDEO -->
 <section class="hero">
-  <h1>Современный лендинг</h1>
-  <p>Красивые анимации и чистый дизайн</p>
-  <button class="btn primary">Начать</button>
-</section>
+  <video autoplay muted loop>
+    <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+  </video>
 
-<section class="cards">
-  <div class="card">
-    <h3>Дизайн</h3>
-    <p>Современные UI решения</p>
-  </div>
-  <div class="card">
-    <h3>Анимации</h3>
-    <p>Плавные эффекты</p>
-  </div>
-  <div class="card">
-    <h3>Код</h3>
-    <p>Чистый и понятный</p>
+  <div class="hero-content">
+    <h1>Анимации + Видео 🔥</h1>
+    <p>Современный лендинг</p>
+    <button class="btn pulse">Начать</button>
   </div>
 </section>
 
-<div class="move"></div>
+<!-- CARDS -->
+<section class="section">
+  <div class="card fade">Карточка 1</div>
+  <div class="card fade">Карточка 2</div>
+  <div class="card fade">Карточка 3</div>
+</section>
 
-<section class="gallery">
+<!-- IMAGE -->
+<section class="section">
   <div class="img-box">
-    <img src="https://picsum.photos/300">
-    <p>Проект 1</p>
-  </div>
-  <div class="img-box">
-    <img src="https://picsum.photos/301">
-    <p>Проект 2</p>
+    <img src="https://picsum.photos/300/200">
+    <span>Hover эффект</span>
   </div>
 </section>
 
-<footer>
-  © 2026 Все права защищены
-</footer>
+<!-- PARALLAX -->
+<div class="parallax"></div>
 
 </body>
 </html>
